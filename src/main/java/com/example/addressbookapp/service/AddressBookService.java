@@ -1,5 +1,7 @@
 package com.example.addressbookapp.service;
 
+import com.example.addressbookapp.dto.AddressBookDTO;
+import com.example.addressbookapp.exception.AddressBookException;
 import com.example.addressbookapp.model.AddressBook;
 import com.example.addressbookapp.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,54 +17,65 @@ public class AddressBookService implements IService {
     AddressBookRepository addressBookRepository;
 
 
+    //Overriding the interface method of IService to perform logic to add the data
     @Override
-    public AddressBook addData(AddressBook addressBook) {
-        addressBookRepository.save(addressBook);
-        return addressBook;
+    public AddressBook addData(AddressBookDTO addressBookDTO) {
+        AddressBook addedAddressBook = new AddressBook(addressBookDTO);
+        addressBookRepository.save(addedAddressBook);
+        return addedAddressBook;
     }
 
     @Override
-    //Method to get address book by id
+    //Overriding the interface method of IService to perform logic to get address book by id
 
     public Optional<AddressBook> getById(int Id) {
-        return addressBookRepository.findById(Id);
-    }
-
-    @Override
-    //Method to get all the data
-
-    public List<AddressBook> getData() {
-        return addressBookRepository.findAll();
-
-    }
-
-    @Override
-    public AddressBook updateData(AddressBook addressBook, int Id) {
         Optional<AddressBook> optional = addressBookRepository.findById(Id);
         if (optional.isPresent()) {
-            AddressBook updatedAddressBook = new AddressBook(Id, addressBook);
+            Optional<AddressBook> foundData = addressBookRepository.findById(Id);
+            return foundData;
+        } else throw new AddressBookException("Address-book of this id is not present");
+    }
+
+    @Override
+    //Overriding the interface method of IService to perform logic to get all the data
+
+    public List<AddressBook> getData() {
+        if (addressBookRepository.findAll().isEmpty()) {
+            throw new AddressBookException("No Address-book Present in the database");
+        } else
+            return addressBookRepository.findAll();
+
+    }
+
+    //Overriding the interface method of IService to perform logic to update the data
+    @Override
+    public AddressBook updateData(int Id, AddressBookDTO addressBookDTO) {
+        Optional<AddressBook> optional = addressBookRepository.findById(Id);
+        if (optional.isPresent()) {
+            AddressBook updatedAddressBook = new AddressBook(Id, addressBookDTO);
             addressBookRepository.save(updatedAddressBook);
             return updatedAddressBook;
         } else {
-            return null;
+            throw new AddressBookException("Address-book not present in the list to update");
         }
     }
 
+    //Overriding the interface method of IService to perform logic to delete by id
     @Override
     public List<AddressBook> deleteById(int ID) {
         if (addressBookRepository.existsById(ID)) {
             addressBookRepository.deleteById(ID);
             return addressBookRepository.findAll();
         } else {
-            return null;
+            throw new AddressBookException("Id is not present to delete in database");
         }
     }
 
-    //Delete all the data
+    //Overriding the interface method of IService to perform logic to delete all the data
     @Override
     public List<AddressBook> deleteall() {
         if (addressBookRepository.findAll().isEmpty()) {
-            return null;
+            throw new AddressBookException("No address-book Present to delete");
         } else addressBookRepository.deleteAll();
         return addressBookRepository.findAll();
     }
