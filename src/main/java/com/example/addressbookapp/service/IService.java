@@ -1,6 +1,7 @@
 package com.example.addressbookapp.service;
 
 import com.example.addressbookapp.model.AddressBook;
+import dto.AddressBookDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,8 @@ public interface IService {
     //Method to get all the data
     List<AddressBook> getData();
 
-    AddressBook updateData(AddressBook addressBook, int Id);
+
+    AddressBook updateData(int Id, AddressBookDTO addressBookDTO);
 
     List<AddressBook> deleteById(int ID);
 

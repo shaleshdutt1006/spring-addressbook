@@ -2,6 +2,7 @@ package com.example.addressbookapp.service;
 
 import com.example.addressbookapp.model.AddressBook;
 import com.example.addressbookapp.repository.AddressBookRepository;
+import dto.AddressBookDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,33 +15,37 @@ public class AddressBookService implements IService {
     @Autowired
     AddressBookRepository addressBookRepository;
 
-
+    //Overriding the interface method of IService to perform logic to add the data
     @Override
     public AddressBook addData(AddressBook addressBook) {
-        addressBookRepository.save(addressBook);
-        return addressBook;
+        return addressBookRepository.save(addressBook);
     }
 
     @Override
-    //Method to get address book by id
+    //Overriding the interface method of IService to perform logic to get address book by id
 
     public Optional<AddressBook> getById(int Id) {
-        return addressBookRepository.findById(Id);
+        Optional<AddressBook> optional = addressBookRepository.findById(Id);
+        if (optional.isPresent()) {
+            Optional<AddressBook> foundData= addressBookRepository.findById(Id);
+            return foundData;
+        } else return null;
     }
 
     @Override
-    //Method to get all the data
+    //Overriding the interface method of IService to perform logic to get all the data
 
     public List<AddressBook> getData() {
         return addressBookRepository.findAll();
 
     }
 
+    //Overriding the interface method of IService to perform logic to update the data
     @Override
-    public AddressBook updateData(AddressBook addressBook, int Id) {
+    public AddressBook updateData(int Id, AddressBookDTO addressBookDTO) {
         Optional<AddressBook> optional = addressBookRepository.findById(Id);
         if (optional.isPresent()) {
-            AddressBook updatedAddressBook = new AddressBook(Id, addressBook);
+            AddressBook updatedAddressBook = new AddressBook(Id, addressBookDTO);
             addressBookRepository.save(updatedAddressBook);
             return updatedAddressBook;
         } else {
@@ -48,6 +53,7 @@ public class AddressBookService implements IService {
         }
     }
 
+    //Overriding the interface method of IService to perform logic to delete by id
     @Override
     public List<AddressBook> deleteById(int ID) {
         if (addressBookRepository.existsById(ID)) {
@@ -58,7 +64,7 @@ public class AddressBookService implements IService {
         }
     }
 
-    //Delete all the data
+    //Overriding the interface method of IService to perform logic to delete all the data
     @Override
     public List<AddressBook> deleteall() {
         if (addressBookRepository.findAll().isEmpty()) {
