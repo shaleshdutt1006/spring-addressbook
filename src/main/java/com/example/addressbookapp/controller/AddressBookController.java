@@ -57,6 +57,7 @@ public class AddressBookController {
         }
     }
 
+    //Delete all the data
     @DeleteMapping("/delete-all")
     public List<AddressBook> deleteall() {
         if (repository.findAll().isEmpty()) {
