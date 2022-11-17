@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.*;
 
+//^\d{5}(?:[-\s]\d{4})?$
 
 //Using @Data is equivalent to using @code @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
 //Using various annotations like @pattern @min to put validations on the class
