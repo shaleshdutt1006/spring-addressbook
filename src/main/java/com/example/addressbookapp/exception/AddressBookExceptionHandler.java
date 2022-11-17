@@ -29,7 +29,7 @@ public class AddressBookExceptionHandler {
     //This method is used to handle the custom exception while getting the Address-book and print the message
     @ExceptionHandler(AddressBookException.class)
     public ResponseEntity<ResponseDTO> handleEmployeePayrollException(AddressBookException exception) {
-        ResponseDTO responseDTO = new ResponseDTO("Exception while processing Rest Request"
+        ResponseDTO responseDTO = new ResponseDTO("Exception while processing the Request is "
                 , exception.getMessage());
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }

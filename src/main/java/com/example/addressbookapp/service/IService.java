@@ -13,6 +13,15 @@ public interface IService {
     //the interface method of IService to perform logic to get address book by id
     Optional<AddressBook> getById(int Id);
 
+    //the interface method of IService to perform logic to get address book by firstName
+    List<AddressBook> findByFirstName(String firstName);
+
+    //the interface method of IService to find person of same city
+    List<AddressBook> findByCity(String city);
+
+    //the interface method of IService to perform Address book order by zipcode
+    List<AddressBook> orderByZipcode();
+
     //the interface method of IService to perform logic to get all the data
     List<AddressBook> getData();
 

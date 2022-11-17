@@ -16,7 +16,7 @@ public @Data class AddressBookDTO {
 // @NotEmpty(message = "First name cannot be null and must have size greater than 0",means we cannot use
 //without giving something to firstname there must be something but in case of not null can use empty string.
 
-    @NotEmpty
+    @NotEmpty(message = "First Name is mandatory")
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{2,}$", message = "Employee First Name Invalid")
     private String firstName;
 
