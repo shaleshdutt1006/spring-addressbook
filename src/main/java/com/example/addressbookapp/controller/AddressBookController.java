@@ -36,13 +36,18 @@ public class AddressBookController {
         return new ResponseEntity<>(responseDTO, HttpStatus.FOUND);
     }
 
+
     //Method to find person by its firstName by custom query in repository
+
+    //Method to find person by its firstName
+
     @GetMapping("/getByFirstName")
     public ResponseEntity<ResponseDTO> getByFirstName(@RequestParam String firstName) {
         List<AddressBook> person = iService.findByFirstName(firstName);
         ResponseDTO responseDTO = new ResponseDTO("Persons who have this first name are", person);
         return new ResponseEntity<>(responseDTO, HttpStatus.FOUND);
     }
+
 
     //Method to find person of same city by custom query in repository
     @GetMapping("/getBySameCity")
@@ -58,6 +63,7 @@ public class AddressBookController {
         ResponseDTO responseDTO = new ResponseDTO("Persons ordered according to zipcodes", person);
         return new ResponseEntity<>(responseDTO, HttpStatus.FOUND);
     }
+
 
     //Method to get all the data of the address-books
     @GetMapping("/get-all")

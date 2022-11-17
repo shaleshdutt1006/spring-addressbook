@@ -22,4 +22,8 @@ public interface AddressBookRepository extends JpaRepository<AddressBook, Intege
     @Query(value = "select * from address_book group by zip_code order by zip_code ", nativeQuery = true)
     List<AddressBook> orderByZipcode();
 
+    // Find Person in the Address-book by its first name
+    @Query(value = "select * from address_book where first_name= :firstName",nativeQuery = true)
+    List<AddressBook> findAddressBookByFirstName(String firstName);
+
 }

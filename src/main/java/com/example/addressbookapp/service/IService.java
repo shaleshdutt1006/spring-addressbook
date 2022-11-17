@@ -22,6 +22,8 @@ public interface IService {
     //the interface method of IService to perform Address book order by zipcode
     List<AddressBook> orderByZipcode();
 
+    List<AddressBook> findByFirstName(String firstName);
+
     //the interface method of IService to perform logic to get all the data
     List<AddressBook> getData();
 
