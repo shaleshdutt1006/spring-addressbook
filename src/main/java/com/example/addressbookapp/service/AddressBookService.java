@@ -36,6 +36,17 @@ public class AddressBookService implements IService {
         } else throw new AddressBookException("Address-book of this id is not present");
     }
 
+    //Overriding the interface method of IService to perform logic to get address book by firstName
+    @Override
+    public List<AddressBook> findByFirstName(String firstName) {
+        List<AddressBook> person = addressBookRepository.findAddressBookByFirstName(firstName);
+        if (!person.isEmpty()) {
+            return person;
+        } else {
+            throw new AddressBookException("No Person of this Name");
+        }
+    }
+
     @Override
     //Overriding the interface method of IService to perform logic to get all the data
 
@@ -44,7 +55,6 @@ public class AddressBookService implements IService {
             throw new AddressBookException("No Address-book Present in the database");
         } else
             return addressBookRepository.findAll();
-
     }
 
     //Overriding the interface method of IService to perform logic to update the data

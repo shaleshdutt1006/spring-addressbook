@@ -36,6 +36,14 @@ public class AddressBookController {
         return new ResponseEntity<>(responseDTO, HttpStatus.FOUND);
     }
 
+    //Method to find person by its firstName
+    @GetMapping("/getByFirstName")
+    public ResponseEntity<ResponseDTO> getByFirstName(@RequestParam String firstName) {
+        List<AddressBook> person = iService.findByFirstName(firstName);
+        ResponseDTO responseDTO = new ResponseDTO("Persons who have this first name are", person);
+        return new ResponseEntity<>(responseDTO, HttpStatus.FOUND);
+    }
+
     //Method to get all the data of the address-books
     @GetMapping("/get-all")
     public List<AddressBook> getData() {

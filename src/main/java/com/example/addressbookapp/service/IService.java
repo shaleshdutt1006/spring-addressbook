@@ -13,6 +13,8 @@ public interface IService {
     //the interface method of IService to perform logic to get address book by id
     Optional<AddressBook> getById(int Id);
 
+    List<AddressBook> findByFirstName(String firstName);
+
     //the interface method of IService to perform logic to get all the data
     List<AddressBook> getData();
 
