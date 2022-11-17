@@ -26,7 +26,7 @@ public class AddressBookService implements IService {
     }
 
     @Override
-    //Overriding the interface method of IService to perform logic to get address book by id
+    //Overriding the interface method of IService to perform logic of get address book by its id
 
     public Optional<AddressBook> getById(int Id) {
         Optional<AddressBook> optional = addressBookRepository.findById(Id);
@@ -36,7 +36,11 @@ public class AddressBookService implements IService {
         } else throw new AddressBookException("Address-book of this id is not present");
     }
 
+
+    
+
     //Overriding the interface method of IService to perform logic to get address book by firstName
+
     @Override
     public List<AddressBook> findByFirstName(String firstName) {
         List<AddressBook> person = addressBookRepository.findAddressBookByFirstName(firstName);
@@ -46,6 +50,31 @@ public class AddressBookService implements IService {
             throw new AddressBookException("No Person of this Name");
         }
     }
+
+
+    //Overriding the interface method of IService to perform custom query of find person of the same city
+    @Override
+    public List<AddressBook> findByCity(String city) {
+        List<AddressBook> personOfSameCity = addressBookRepository.
+                personsOfSameCity(city);
+        if (personOfSameCity.isEmpty()) {
+            throw new AddressBookException("There are no Persons in the same city");
+        } else {
+            return personOfSameCity;
+        }
+    }
+
+    //Overriding the interface method of IService to perform logic of Address book order by zipcode
+    @Override
+    public List<AddressBook> orderByZipcode() {
+        List<AddressBook> orderedList = addressBookRepository.orderByZipcode();
+        if (orderedList.isEmpty()) {
+            throw new AddressBookException("There are no Persons which can be ordered by zipcode");
+        } else {
+            return orderedList;
+        }
+    }
+
 
     @Override
     //Overriding the interface method of IService to perform logic to get all the data
@@ -70,7 +99,7 @@ public class AddressBookService implements IService {
         }
     }
 
-    //Overriding the interface method of IService to perform logic to delete by id
+    //Overriding the interface method of IService to perform logic of delete by id
     @Override
     public List<AddressBook> deleteById(int ID) {
         if (addressBookRepository.existsById(ID)) {
@@ -81,7 +110,7 @@ public class AddressBookService implements IService {
         }
     }
 
-    //Overriding the interface method of IService to perform logic to delete all the data
+    //Overriding the interface method of IService to perform logic of delete all the data
     @Override
     public List<AddressBook> deleteall() {
         if (addressBookRepository.findAll().isEmpty()) {
